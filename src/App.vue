@@ -1,3 +1,3 @@
 <template>
-  <div>Fast Create</div>
+  <v-container>Fast Create</v-container>
 </template>
