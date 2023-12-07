@@ -1,3 +1,13 @@
 <template>
-  <v-container>Fast Create</v-container>
+  <AppBar />
 </template>
+
+<script>
+import AppBar from "@/components/AppBar.vue";
+
+export default {
+  components: {
+    AppBar,
+  },
+};
+</script>
