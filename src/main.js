@@ -1,4 +1,5 @@
 import { createApp } from "vue";
+import { StoryblokVue, apiPlugin } from "@storyblok/vue";
 import App from "./App.vue";
 
 // Vuetify
@@ -10,10 +11,20 @@ import * as directives from "vuetify/directives";
 // mdi Icons
 import "@mdi/font/css/materialdesignicons.css";
 
+const app = createApp(App);
+
 const vuetify = createVuetify({
   components,
   directives,
   iconSet: "mdi",
 });
 
-createApp(App).use(vuetify).mount("#app");
+app.use(StoryblokVue, {
+  accessToken: "fFCOnJO075ZNv1XLptu4cwtt",
+  use: [apiPlugin],
+  apiOptions: {
+    region: "",
+  },
+});
+
+app.use(vuetify).mount("#app");

@@ -1,10 +1,11 @@
 <template>
   <v-container>
-    <div v-if="posts.length > 0">
+    <v-col>
       <h3>Список товаров:</h3>
-      <post-item v-for="post in posts" :key="post.id" :post="post" />
-    </div>
-    <h2 v-else>Список товаров пуст</h2>
+      <v-row>
+        <post-item v-for="post in posts?.product" :key="post" :post="post" />
+      </v-row>
+    </v-col>
   </v-container>
 </template>
 
