@@ -2,7 +2,7 @@
 	<v-col>
 		<h3 class="mb-4">Ігрові монітори</h3>
 		<v-row>
-			<post-item v-for="item in products" :key="item" :item="item" />
+			<post-item v-for="(item, index) in products" :key="index" :item="item" />
 		</v-row>
 	</v-col>
 </template>

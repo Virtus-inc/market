@@ -33,7 +33,7 @@
 					<h3>{{ item.cost }}</h3>
 					<v-icon icon="mdi-currency-uah" size="small" />
 				</div>
-				<v-btn color="green">
+				<v-btn color="green" @click="buyProduct(item)">
 					<v-icon color="green" icon="mdi-cart" size="small" />
 					<div class="pl-1">Придбати</div>
 				</v-btn>
@@ -63,6 +63,9 @@ export default {
 			let maxLength = 70;
 			let truncatedString = this.item?.title.substring(0, maxLength) + '...';
 			return truncatedString;
+		},
+		buyProduct(item) {
+			this.$store.commit('ADD_PRODUCT_TO_CART', item);
 		}
 	}
 };

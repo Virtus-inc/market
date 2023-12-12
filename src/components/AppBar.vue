@@ -21,7 +21,12 @@
 		>
 			<v-icon :class="{ 'red--text': isStartRecognise }">mdi-microphone</v-icon>
 		</v-btn>
-		<v-btn variant="text" icon="mdi-cart-variant" />
+		<v-btn variant="text" icon>
+			<cart-dialog
+				@closeDialogCart="toggleCartDialog()"
+				:statusDialog="cartDialog"
+			/>
+		</v-btn>
 	</v-app-bar>
 </template>
 
@@ -37,11 +42,16 @@
 <script>
 import { ref } from 'vue';
 import debounce from 'lodash/debounce';
+import CartDialog from '@/components/CartDialog.vue';
 
 export default {
+	components: {
+		CartDialog
+	},
 	data() {
 		return {
-			isStartRecognise: ref(false)
+			isStartRecognise: ref(false),
+			cartDialog: false
 		};
 	},
 	computed: {
@@ -75,6 +85,12 @@ export default {
 			};
 
 			recognition.start();
+		},
+		toggleCartDialog() {
+			this.cartDialog = !this.cartDialog;
+			this.$nextTick(() => {
+				this.cartDialog = !this.cartDialog;
+			});
 		}
 	}
 };
