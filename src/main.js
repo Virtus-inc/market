@@ -16,6 +16,10 @@ import store from '@/store/store';
 // Mdi Icons
 import '@mdi/font/css/materialdesignicons.css';
 
+// Notification
+import Toast from 'vue-toastification';
+import 'vue-toastification/dist/index.css';
+
 const app = createApp(App);
 
 const vuetify = createVuetify({
@@ -25,6 +29,7 @@ const vuetify = createVuetify({
 });
 
 app.use(store);
+app.use(Toast, { timeout: 2000 });
 
 app.use(StoryblokVue, {
 	accessToken: 'fFCOnJO075ZNv1XLptu4cwtt',

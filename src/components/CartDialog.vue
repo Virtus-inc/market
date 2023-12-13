@@ -13,7 +13,7 @@
 					<v-table v-if="productsInCart.length > 0">
 						<thead>
 							<tr>
-								<th class="text-left">Назва</th>
+								<th class="text-left">Назва товару</th>
 								<th class="text-left">Ціна</th>
 								<th></th>
 							</tr>
@@ -23,9 +23,18 @@
 								<td>
 									<v-alert class="mt-3 mb-3">{{ item.title }}</v-alert>
 								</td>
-								<td>{{ item.cost }}</td>
 								<td>
-									<v-icon icon="mdi-close" @click="removeItemFromCard(index)" />
+									<div style="width: 64px">
+										{{ item.cost }}
+										<v-icon icon="mdi-currency-uah" size="small" />
+									</div>
+								</td>
+								<td>
+									<v-btn
+										icon="mdi-close"
+										variant="text"
+										@click="removeItemFromCard(index)"
+									/>
 								</td>
 							</tr>
 						</tbody>
@@ -46,6 +55,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { useToast } from 'vue-toastification';
+const toast = useToast();
 
 export default {
 	props: {
@@ -60,6 +71,19 @@ export default {
 	},
 	methods: {
 		multiTask() {
+			toast.success('Замовлення підтверджено', {
+				position: 'top-center',
+				closeOnClick: true,
+				pauseOnFocusLoss: true,
+				pauseOnHover: true,
+				draggable: true,
+				draggablePercent: 0.6,
+				showCloseButtonOnHover: false,
+				hideProgressBar: true,
+				closeButton: 'button',
+				icon: true,
+				rtl: false
+			});
 			this.closeDialog();
 			this.removeListCard();
 		},
@@ -67,7 +91,19 @@ export default {
 			this.$store.commit('REMOVE_PRODUCTS_FROM_CART');
 		},
 		removeItemFromCard(index) {
-			console.log(index);
+			toast.error('Замовлення скасовано', {
+				position: 'top-center',
+				closeOnClick: true,
+				pauseOnFocusLoss: true,
+				pauseOnHover: true,
+				draggable: true,
+				draggablePercent: 0.6,
+				showCloseButtonOnHover: false,
+				hideProgressBar: true,
+				closeButton: 'button',
+				icon: true,
+				rtl: false
+			});
 			this.$store.commit('REMOVE_PRODUCT_FROM_CART', index);
 		},
 		closeDialog() {

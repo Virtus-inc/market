@@ -3,7 +3,11 @@
 		<app-bar />
 		<v-container>
 			<v-col class="mt-14">
-				<post-list v-if="!isPostLoading" :products="products" />
+				<post-list
+					v-if="!isPostLoading"
+					:products="products"
+					:description="description"
+				/>
 				<v-col v-else><h3>Завантаження...</h3></v-col>
 			</v-col>
 		</v-container>
@@ -26,7 +30,8 @@ export default {
 	}),
 	computed: {
 		...mapGetters({
-			products: ['getPoducts']
+			products: ['getPoducts'],
+			description: ['getDescription']
 		}),
 		producta_list: {
 			get() {
@@ -46,6 +51,7 @@ export default {
 					cv: Date.now()
 				});
 				this.$store.commit('ADD_PRODUCTS', response);
+				this.$store.commit('ADD_DESCRIPTION_FOR_THE_PRODUCT', response);
 			} catch {
 				console.log('Error');
 			} finally {
