@@ -1,5 +1,11 @@
 <template>
-	<v-app-bar color="primary" prominent app class="pr-16 pl-16">
+	<v-app-bar
+		width="100%"
+		color="primary"
+		prominent
+		app
+		class="pr-lg-16 pl-lg-16"
+	>
 		<v-app-bar-nav-icon variant="text" />
 		<v-toolbar-title>Marketplace</v-toolbar-title>
 		<v-spacer />

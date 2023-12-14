@@ -1,56 +1,58 @@
 <template>
-	<v-row justify="center">
-		<v-dialog :model-value="statusDialog" width="800">
-			<template v-slot:activator="{ props }">
-				<v-btn v-bind="props" icon="mdi-cart-variant" />
-			</template>
-			<v-card>
-				<v-card-title>
-					<span class="text-h5" v-if="productsInCart.length > 0">Кошик</span>
-					<span v-else />
-				</v-card-title>
-				<v-card-text>
-					<v-table v-if="productsInCart.length > 0">
-						<thead>
-							<tr>
-								<th class="text-left">Назва товару</th>
-								<th class="text-left">Ціна</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr v-for="(item, index) in productsInCart" :key="index">
-								<td>
-									<v-alert class="mt-3 mb-3">{{ item.title }}</v-alert>
-								</td>
-								<td>
-									<div style="width: 64px">
-										{{ item.cost }}
-										<v-icon icon="mdi-currency-uah" size="small" />
-									</div>
-								</td>
-								<td>
-									<v-btn
-										icon="mdi-close"
-										variant="text"
-										@click="removeItemFromCard(index)"
-									/>
-								</td>
-							</tr>
-						</tbody>
-					</v-table>
-					<h3 class="text-center mb-4" v-else>Не має товару</h3>
-				</v-card-text>
-				<v-card-actions v-if="productsInCart.length > 0">
-					<v-spacer></v-spacer>
-					<v-btn color="green-darken-1" variant="text" @click="multiTask()">
-						Замовити
-					</v-btn>
-				</v-card-actions>
-				<div v-else />
-			</v-card>
-		</v-dialog>
-	</v-row>
+	<v-dialog :model-value="statusDialog" width="800">
+		<template v-slot:activator="{ props }">
+			<v-btn v-bind="props" icon="mdi-cart-variant" />
+		</template>
+		<v-card>
+			<v-card-title>
+				<span class="text-h5" v-if="productsInCart.length > 0">Кошик</span>
+				<span v-else />
+			</v-card-title>
+			<v-card-text>
+				<v-table v-if="productsInCart.length > 0">
+					<thead>
+						<tr>
+							<th class="text-left">Назва товару</th>
+							<th class="text-left">Ціна</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="(item, index) in productsInCart" :key="index">
+							<td>
+								<v-alert class="mt-3 mb-3">{{ item.title }}</v-alert>
+							</td>
+							<td>
+								<div style="width: 64px">
+									{{ item.cost }}
+									<v-icon icon="mdi-currency-uah" size="small" />
+								</div>
+							</td>
+							<td>
+								<v-btn
+									icon="mdi-close"
+									variant="text"
+									@click="removeItemFromCard(index)"
+								/>
+							</td>
+						</tr>
+					</tbody>
+				</v-table>
+				<h3 class="text-center mb-4" v-else>Не має товару</h3>
+			</v-card-text>
+			<v-card-actions v-if="productsInCart.length > 0">
+				<v-spacer></v-spacer>
+				<v-chip class="mr-4" color="red">
+					<h4>Загальна вартість: {{ totalCost() }}</h4>
+					<v-icon icon="mdi-currency-uah" size="small" />
+				</v-chip>
+				<v-btn color="green-darken-1" variant="flat" @click="multiTask()">
+					Замовити
+				</v-btn>
+			</v-card-actions>
+			<div v-else />
+		</v-card>
+	</v-dialog>
 </template>
 
 <script>
@@ -70,6 +72,9 @@ export default {
 		})
 	},
 	methods: {
+		totalCost() {
+			return this.productsInCart.reduce((acc, cur) => acc + +cur.cost, 0);
+		},
 		multiTask() {
 			toast.success('Замовлення підтверджено', {
 				position: 'top-center',

@@ -1,12 +1,6 @@
 <template>
-	<v-col style="height: 470px">
-		<v-card
-			class="mx-auto"
-			min-width="320"
-			width="auto"
-			height="100%"
-			style="overflow-y: auto"
-		>
+	<v-col class="pa-0">
+		<v-card class="mx-auto custom_width" height="100%" style="overflow-y: auto">
 			<v-btn
 				v-if="reveal"
 				class="btn_top"
@@ -19,7 +13,7 @@
 					size="x-large"
 				/>
 			</v-btn>
-			<v-card-item v-if="!reveal" class="pa-10">
+			<v-card-item v-if="!reveal" class="pa-lg-10">
 				<v-img
 					class="align-end text-white"
 					height="195"
@@ -153,9 +147,19 @@
 	top: 0;
 	width: 100%;
 }
+
+.custom_width {
+	width: 320px;
+	@media screen and (max-width: 900px) {
+		width: 265px;
+	}
+}
 </style>
 
 <script>
+import { useToast } from 'vue-toastification';
+const toast = useToast();
+
 export default {
 	props: {
 		item: {
@@ -178,6 +182,20 @@ export default {
 		},
 		buyProduct(item) {
 			this.$store.commit('ADD_PRODUCT_TO_CART', item);
+
+			toast.success('Товар доданий у кошик', {
+				position: 'top-center',
+				closeOnClick: true,
+				pauseOnFocusLoss: true,
+				pauseOnHover: true,
+				draggable: true,
+				draggablePercent: 0.6,
+				showCloseButtonOnHover: false,
+				hideProgressBar: true,
+				closeButton: 'button',
+				icon: true,
+				rtl: false
+			});
 		}
 	}
 };

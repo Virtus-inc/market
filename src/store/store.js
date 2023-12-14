@@ -1,7 +1,4 @@
 import { createStore } from 'vuex';
-import { useToast } from 'vue-toastification';
-
-const toast = useToast();
 
 const store = createStore({
 	state: {
@@ -22,19 +19,6 @@ const store = createStore({
 		},
 		ADD_PRODUCT_TO_CART(state, payload) {
 			state.cart.push(payload);
-			toast.success('Товар доданий у кошик', {
-				position: 'top-center',
-				closeOnClick: true,
-				pauseOnFocusLoss: true,
-				pauseOnHover: true,
-				draggable: true,
-				draggablePercent: 0.6,
-				showCloseButtonOnHover: false,
-				hideProgressBar: true,
-				closeButton: 'button',
-				icon: true,
-				rtl: false
-			});
 		},
 		REMOVE_PRODUCT_FROM_CART(state, payload) {
 			state.cart.splice(payload, 1);
